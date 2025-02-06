@@ -18,10 +18,7 @@ public class LookupService {
 
     @Cacheable(value = "userCache", key = "#username")
     public UserResponse lookupUser(String username) {
-        // Lookup user info
         GithubUser userInfo = githubGateway.getGithubUserByUsername(username);
-
-        // Lookup user repos
         List<GithubRepo> repos = githubGateway.getGithubReposByUsername(username);
 
         return UserResponse.from(userInfo, repos);

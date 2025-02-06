@@ -5,6 +5,7 @@ import org.dkiley.takehome.gateway.dto.GithubRepo;
 import org.dkiley.takehome.gateway.dto.GithubUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,11 @@ class GithubGatewayTest {
     @BeforeEach
     void setUp() {
         restTemplate = mock(RestTemplate.class);
-        githubGateway = new GithubGateway(restTemplate);
+        RestTemplateBuilder restTemplateBuilder = mock(RestTemplateBuilder.class);
+
+        when(restTemplateBuilder.build()).thenReturn(restTemplate);
+
+        githubGateway = new GithubGateway(restTemplateBuilder);
     }
 
     @Test
